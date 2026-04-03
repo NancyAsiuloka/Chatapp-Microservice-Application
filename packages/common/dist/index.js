@@ -3,4 +3,5 @@ export * from "./logger";
 export { z } from "zod";
 export * from "./errors/http-error";
 export * from "./http/async-handler";
+export * from "./http/validate-request";
 //# sourceMappingURL=index.js.map
