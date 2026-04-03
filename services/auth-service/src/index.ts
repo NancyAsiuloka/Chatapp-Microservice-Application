@@ -1,38 +1,42 @@
-import { createApp } from "@/app"
-import { createServer } from "http"
-import { env } from "@/config/env"
+import { createApp } from "@/app";
+import { createServer } from "http";
+import { env } from "@/config/env";
 import { logger } from "@/utils/logger";
-import { connectToDatabase } from "@/db/sequelize";
+import { closeDatabase, connectToDatabase } from "@/db/sequelize";
+import { initModels } from "@/models";
 
 const main = async () => {
-   try {
+  try {
     await connectToDatabase();
-        const app = createApp();
-        const server = createServer(app)
+    await initModels();
 
-        const port = env.AUTH_SERVICE_PORT
+    const app = createApp();
+    const server = createServer(app);
 
-        server.listen(port, () => {
-          logger.info({ port }, "Auth service is running!")  
+    const port = env.AUTH_SERVICE_PORT;
+
+    server.listen(port, () => {
+      logger.info({ port }, "Auth service is running!");
+    });
+
+    const shutdown = () => {
+      logger.info("Shutting down the service...");
+
+      Promise.all([closeDatabase()])
+        .catch((error: unknown) => {
+          logger.error({ error }, "Error during shutdown task");
         })
+        .finally(() => {
+          server.close(() => process.exit(0));
+        });
+    };
 
-        const shutdown  = () => {
-            logger.info("Shutting down the service...");
+    process.on("SIGINT", shutdown);
+    process.on("SIGTERM", shutdown);
+  } catch (error) {
+    logger.error({ error }, "Failed to start auth service");
+    process.exit(1);
+  }
+};
 
-            Promise.all([]).catch((error: unknown) => {
-                logger.error({ error }, "Error during shutdown task")
-            })
-            .finally(() => {
-                server.close(() => process.exit(0))
-            })
-        }
-
-        process.on("SIGINT", shutdown)
-        process.on("SIGTERM", shutdown)
-   } catch (error) {
-        logger.error({ error }, "Failed to start auth service");
-        process.exit(1)
-   } 
-}
-
-void main()
+void main();
