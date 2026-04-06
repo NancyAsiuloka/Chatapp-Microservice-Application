@@ -6,8 +6,8 @@ POST {{baseGateway}}/auth/register
 content-type: application/json
 
 {
-    "email": "anna.doe@example.com",
-    "displayName": "anna Doe",
+    "email": "nancyasiuloka@example.com",
+    "displayName": "Nancy Asiuloka",
     "password": "Password123!"
 }
 
@@ -17,6 +17,6 @@ POST {{baseGateway}}/auth/login
 content-type: application/json
 
 {
-    "email": "william.doe@example.com",
+    "email": "nancyasiuloka@example.com",
     "password": "Password123!"
 }
