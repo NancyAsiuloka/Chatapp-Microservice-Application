@@ -1,4 +1,4 @@
-@baseGateway = http://localhost:4004
+@baseGateway = http://localhost:4007
 
 
 ### Auth Register
@@ -6,8 +6,8 @@ POST {{baseGateway}}/auth/register
 content-type: application/json
 
 {
-    "email": "nancyasiuloka@example.com",
-    "displayName": "Nancy Asiuloka",
+    "email": "janedoe@example.com",
+    "displayName": "Jane Doe",
     "password": "Password123!"
 }
 
