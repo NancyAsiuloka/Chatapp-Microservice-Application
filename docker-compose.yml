@@ -20,7 +20,7 @@ services:
       POSTGRES_USER: ${USER_DB_USER:-chatapp_user}
       POSTGRES_PASSWORD: ${USER_DB_PASSWORD:-chatapp_password}
     ports:
-      - "${USER_DB_PORT:-5432}:5432"
+      - "${USER_DB_PORT:-5433}:5432"
     volumes:
       - user-db-data:/var/lib/postgresql/data
     networks:
