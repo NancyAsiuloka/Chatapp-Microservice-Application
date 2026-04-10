@@ -1,1 +1,24 @@
 node_modules
+auth-service/node_modules
+user-service/node_modules
+gateway-service/node_modules
+
+auth-service/.env
+user-service/.env
+gateway-service/.env# dependencies
+node_modules/
+
+# env files
+.env
+.env.*
+
+# logs
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# build
+dist/
